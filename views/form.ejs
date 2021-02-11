@@ -3,12 +3,34 @@
         <h1>Undirskriftarlisti</h1>
     </header>
     <main>
+        <form action="post">
         <label for="nafn">Nafn*</label>
         <input type="text" name="Nafn" id="nafn" required>
         <label for="kennitala">Kennitala*</label>
         <input type="text name" name = "kennitala" id="kennitala" required>
         <label for="ath">Athugasemd:</label>
         <input type="text">
-   
+        <button>Skrifa undir</button>
+    </form>
     <hr>
-<%- include('signature') %>  
+    <table>
+        <tr class = 'table-heading'>
+            <th>Dags</th>
+            <th>Nafn</th>
+            <th>Athugasemd</th>
+        </tr>
+        <% signatures.rows.forEach(sign => { %>
+            <tr>
+                <th><%= sign.signed %> </th>
+                <% if(!sign.anonymous) { %>
+                    <th></th>
+                <% } else {%>
+                    <th><%= sign.name%></th>
+                <%} %>
+                <th><%= sign.comment%></th>
+            </tr>    
+        <% }); %> 
+    
+    </table>
+    </main>
+    <%- include('footer') %> 

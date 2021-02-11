@@ -4,6 +4,16 @@
         <th>Nafn</th>
         <th>Athugasemd</th>
     </tr>
+    <% signatures.forEach(sign => { %>
+        <th><%= sign.signed.format('YYYY-mm-dd') %> </th>
+        <% if(!sign.anonymous) { %>
+            <th></th>
+        <% } else {%>
+            <th><%= sign.name%></th>
+        <%} %>
+        <th><%= sign.comment%></th>    
+    <% }); %> 
+
 </table>
 </main>
 <%- include('footer') %> 

@@ -12,4 +12,41 @@ if (!connectionString) {
   process.exit(1);
 }
 
+const pool = new pg.Pool({ connectionString });
+
+pool.on('error', (err) => {
+  console.error('Unexpected error on idle client', err);
+});
 // TODO gagnagrunnstengingar
+
+export async function insertSignature(name, natID, comment, anon) {
+  const client = await pool.connect();
+  const query = 'INSERT INTO signatures (name, nationalID, comment, anonymous) VALUES ($1,$2,$3,$4) returning *';
+  const values = [name, natID, comment, anon];
+
+  try {
+    const result = await client.query(query, values);
+    console.info('Inserted row :>> ', result.rows);
+  } catch (e) {
+    console.error('Error inserting', e);
+  } finally {
+    client.release();
+  }
+  await pool.end();
+}
+
+export async function getSignatures() {
+  const client = await pool.connect();
+  const query = 'SELECT * FROM signatures';
+  let results = '';
+
+  try {
+    results = await client.query(query);
+  } catch (e) {
+    console.error('Error inserting', e);
+  } finally {
+    client.release();
+  }
+  await pool.end();
+  return results;
+}
