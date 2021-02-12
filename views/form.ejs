@@ -3,31 +3,47 @@
         <h1>Undirskriftarlisti</h1>
     </header>
     <main>
-        <form action="post">
-        <label for="nafn">Nafn*</label>
-        <input type="text" name="Nafn" id="nafn" required>
-        <label for="kennitala">Kennitala*</label>
-        <input type="text name" name = "kennitala" id="kennitala" required>
-        <label for="ath">Athugasemd:</label>
-        <input type="text">
-        <button>Skrifa undir</button>
-    </form>
+        <form action="/post" method = "post" enctype="application/x-www-form-urlencoded">
+            <label for="nafn">Nafn*
+                <input type="text" name="nafn" id="nafn" value="<%= locals.form[0] %> ">
+            </label>
+            <label for="kennitala">Kennitala*
+                <input type="text name" name = "kennitala" id="kennitala" value="<%= locals.form[1] %> ">
+            </label>
+            <label for="ath">Athugasemd:
+                <textarea class = "ath" name = "ath" id = "ath" cols="30" rows="10"><%= locals.form[2] %></textarea>
+            </label>
+            <label> Ekki birta nafn á lista
+                <input type="checkbox" name="anon" id="anon">
+            </label>
+            <input type="submit" value="Skrifa undir" class = "submission">
+        </form>
+        <% if(locals.errors){ %> 
+            <ul>
+                <% locals.errors.forEach(error => { %>
+                    <li><%= error %> </li>
+                <% }); %> 
+            </ul>
+        <% } %> 
     <hr>
+    <div class = "sign__heading">
+        <h2>Undirskriftir</h2>
+    </div>
     <table>
-        <tr class = 'table-heading'>
-            <th>Dags</th>
-            <th>Nafn</th>
-            <th>Athugasemd</th>
+        <tr class = "table-heading">
+            <th class = "date">Dags</th>
+            <th class = "name">Nafn</th>
+            <th class= "note">Athugasemd</th>
         </tr>
         <% signatures.rows.forEach(sign => { %>
             <tr>
-                <th><%= sign.signed %> </th>
-                <% if(!sign.anonymous) { %>
-                    <th></th>
+                <th class = "date"><%= new Date(sign.signed).toDateString() %> </th>
+                <% if(sign.anonymous) { %>
+                    <th class = "name"></th>
                 <% } else {%>
-                    <th><%= sign.name%></th>
+                    <th class = "name"><%= sign.name%></th>
                 <%} %>
-                <th><%= sign.comment%></th>
+                <th class= "note"><%= sign.comment%></th>
             </tr>    
         <% }); %> 
     

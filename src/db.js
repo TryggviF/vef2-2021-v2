@@ -23,16 +23,18 @@ export async function insertSignature(name, natID, comment, anon) {
   const client = await pool.connect();
   const query = 'INSERT INTO signatures (name, nationalID, comment, anonymous) VALUES ($1,$2,$3,$4) returning *';
   const values = [name, natID, comment, anon];
-
+  let result = '';
   try {
-    const result = await client.query(query, values);
+    result = await client.query(query, values).catch();
     console.info('Inserted row :>> ', result.rows);
   } catch (e) {
-    console.error('Error inserting', e);
+    return 0;
   } finally {
     client.release();
   }
-  await pool.end();
+  return result.rows;
+
+  // await pool.end();
 }
 
 export async function getSignatures() {
@@ -43,10 +45,10 @@ export async function getSignatures() {
   try {
     results = await client.query(query);
   } catch (e) {
-    console.error('Error inserting', e);
+    console.error('Error selecting', e);
   } finally {
     client.release();
   }
-  await pool.end();
+  // await pool.end();
   return results;
 }

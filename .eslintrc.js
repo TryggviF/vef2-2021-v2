@@ -11,6 +11,7 @@ module.exports = {
 
     // Verðum að hafa extensions út af es modules
     'import/extensions': 0,
+    'import/no-cycle': 0,
 
     // Skilgreinum að þetta sé rótin í verkefninu okkar, þar sem það er annað
     // package.json skjal í ./src
@@ -18,5 +19,6 @@ module.exports = {
 
     // Leyfum console.info, warn og error
     'no-console': ['error', { allow: ['info', 'warn', 'error'] }],
+
   },
 };

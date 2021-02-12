@@ -1,87 +1,66 @@
-import express from 'express';
 import dotenv from 'dotenv';
-import { body, validationResult } from 'express-validator';
-import { template } from './registration.js';
+import express from 'express';
+import { body } from 'express-validator';
+import xss from 'xss';
 import { insertSignature, getSignatures } from './db.js';
+import { router } from './registration.js';
 
 dotenv.config();
 
 const {
   PORT: port = 3000,
 } = process.env;
-const nationalIdPattern = '^[0-9]{6}-?[0-9]{4}$';
+// const nationalIdPattern = '^[0-9]{6}-?[0-9]{4}$';
 
-const app = express();
+export const app = express();
+app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
 app.set('views', './views');
 app.set('view engine', 'ejs');
+app.locals.form = ['', '', '', ''];
 // TODO setja upp rest af virkni!
 
-app.get('/', async (req, res) => {
-  const signatures = await getSignatures();
-  res.render('form', { signatures });
+app.get('/', async (_req, res) => {
+  if (!app.locals.failed) {
+    const signatures = await getSignatures();
+    res.render('form', { signatures });
+  } else {
+    app.locals.failed = false;
+    res.render('villa');
+  }
 });
 
-app.post(
-  '/post',
-
-  // Þetta er bara validation, ekki sanitization
-  body('name')
-    .isLength({ min: 1 })
-    .withMessage('Nafn má ekki vera tómt'),
-  body('nationalId')
-    .isLength({ min: 1 })
-    .withMessage('Kennitala má ekki vera tóm'),
-  body('nationalId')
-    .matches(new RegExp(nationalIdPattern))
-    .withMessage('Kennitala verður að vera á formi 000000-0000 eða 0000000000'),
-
-  (req, res, next) => {
+app.post('/post', router,
+  body('nafn').trim().escape(),
+  body('kennitala').blacklist('-'),
+  body('ath').trim().escape(),
+  async (req, res) => {
     const {
-      name = '',
-      nationalId = '',
-      annad = '',
+      nafn = '',
+      kennitala = '',
+      ath = '',
+      anon = '',
     } = req.body;
-
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-      const errorMessages = errors.array().map((i) => i.msg);
-      return res.send(
-        `${template(name, nationalId, annad)}
-        <p>Villur:</p>
-        <ul>
-          <li>${errorMessages.join('</li><li>')}</li>
-        </ul>
-      `,
-      );
+    const safeNafn = xss(nafn);
+    const safekt = xss(kennitala);
+    const safeAth = xss(ath);
+    const sec = anon.localeCompare('on') === 0;
+    let result = 0;
+    try {
+      result = await insertSignature(safeNafn, safekt, safeAth, sec);
+    } catch (e) {
+      console.error('Error inserting', e);
+      app.locals.failed = true;
+      // res.redirect('/');
     }
-
-    return next();
-  },
-  body('name').trim().escape(),
-  body('email').normalizeEmail(),
-  body('nationalId').blacklist('-'),
-
-  (req, res) => {
-    const {
-      name,
-      email,
-      nationalId,
-    } = req.body;
-
-    return res.send(`
-      <p>Skráning móttekin!</p>
-      <dl>
-        <dt>Nafn</dt>
-        <dd>${name}</dd>
-        <dt>Netfang</dt>
-        <dd>${email}</dd>
-        <dt>Kennitala</dt>
-        <dd>${nationalId}</dd>
-      </dl>
-    `);
-  },
-);
+    if (result === 0) {
+      app.locals.failed = true;
+      res.redirect('/');
+    } else {
+      app.locals.failed = false;
+      res.redirect('/');
+    }
+  });
 
 // Verðum að setja bara *port* svo virki á heroku
 app.listen(port, () => {
