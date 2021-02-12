@@ -32,17 +32,18 @@ form {
     width: 78%;
   }
 }
-input {
-    border: 1px solid $off-yellow;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    padding-right: 3rem;
-    width: 75%;
-  }
 
-  .highlight {
-    background-color: rgb(248, 160, 160);
-  }
+input {
+  border: 1px solid $off-yellow;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding-right: 3rem;
+  width: 75%;
+}
+
+.highlight {
+  background-color: rgb(248, 160, 160);
+}
 
 .the-box {
   align-items: center;
