@@ -4,19 +4,21 @@
     </header>
     <main>
         <form action="/post" method = "post" enctype="application/x-www-form-urlencoded">
-            <label for="nafn">Nafn*
-                <input type="text" name="nafn" id="nafn" value="<%= locals.form[0] %> ">
+            <label for="nafn"><div>Nafn*</div>
+                <input class = "<%= locals.wrongfields[0] %> " type="text" name="nafn" id="nafn" value="<%= locals.form[0] %>">
             </label>
-            <label for="kennitala">Kennitala*
-                <input type="text name" name = "kennitala" id="kennitala" value="<%= locals.form[1] %> ">
+            <label for="kennitala"><div> Kennitala*</div>
+                <input class = "<%= locals.wrongfields[1] %> " type="text name" name = "kennitala" id="kennitala" value="<%= locals.form[1] %>">
             </label>
-            <label for="ath">Athugasemd:
-                <textarea class = "ath" name = "ath" id = "ath" cols="30" rows="10"><%= locals.form[2] %></textarea>
+            <label for="ath"><div> Athugasemd:</div>
+                <textarea class = "ath <%= locals.wrongfields[2] %>" name = "ath" id = "ath" cols="30" rows="10"><%= locals.form[2] %></textarea>
             </label>
-            <label> Ekki birta nafn á lista
+            <label class = "the-box"><div>Ekki birta nafn á lista</div>
                 <input type="checkbox" name="anon" id="anon">
             </label>
-            <input type="submit" value="Skrifa undir" class = "submission">
+            <div class = "submit-container">
+                <input type="submit" value="Skrifa undir" class = "submission">
+            </div>
         </form>
         <% if(locals.errors){ %> 
             <ul>

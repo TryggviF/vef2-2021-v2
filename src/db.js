@@ -8,7 +8,7 @@ const {
   NODE_ENV: nodeEnv = '',
 } = process.env;
 
-console.log('process.env :>> ', process.env.DATABASE_URL);
+console.info('process.env :>> ', process.env.DATABASE_URL);
 
 if (!connectionString) {
   console.error('Vantar DATABASE_URL!');

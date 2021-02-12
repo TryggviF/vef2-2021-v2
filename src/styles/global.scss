@@ -24,8 +24,14 @@ label {
 
   input {
     border: 1px solid $off-yellow;
+    margin-left: 1rem;
+    margin-right: 1rem;
     padding-right: 3rem;
     width: 75%;
+  }
+
+  .highlight {
+    background-color: rgb(248, 160, 160);
   }
 
   .ath {
@@ -33,7 +39,25 @@ label {
   }
 
   textarea {
-    width: 85%;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    width: 78%;
+  }
+}
+
+.the-box {
+  align-items: center;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+
+  input {
+    margin-right: -30rem;
+    width: 50px;
+  }
+
+  div {
+    margin-left: -30rem;
   }
 }
 
@@ -48,4 +72,17 @@ hr {
 
 h2 {
   text-align: center;
+}
+
+.submission {
+  border-radius: 10%;
+  height: 150px;
+  margin: 0 auto;
+  width: 200px;
+}
+
+.submit-container {
+  align-items: center;
+  display: flex;
+  width: 100%;
 }

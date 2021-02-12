@@ -7,6 +7,11 @@ tr {
   border: solid 1px $off-yellow;
   display: flex;
   flex-direction: row;
+  height: 1.5rem;
+
+  > * {
+    font-weight: 400;
+  }
 }
 
 th {
@@ -23,4 +28,8 @@ th {
 
 .note {
   width: 65%;
+}
+
+.table-heading > * {
+  font-weight: 600;
 }

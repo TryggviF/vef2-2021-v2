@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.set('views', './views');
 app.set('view engine', 'ejs');
 app.locals.form = ['', '', '', ''];
+app.locals.wrongfields = ['', '', ''];
 // TODO setja upp rest af virkni!
 
 app.get('/', async (_req, res) => {
