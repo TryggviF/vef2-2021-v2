@@ -16,23 +16,11 @@ form {
   flex-wrap: wrap;
 }
 
-label {
+.container {
   display: flex;
   justify-content: space-between;
   margin-bottom: 2rem;
   width: 100%;
-
-  input {
-    border: 1px solid $off-yellow;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    padding-right: 3rem;
-    width: 75%;
-  }
-
-  .highlight {
-    background-color: rgb(248, 160, 160);
-  }
 
   .ath {
     height: 6rem;
@@ -44,19 +32,31 @@ label {
     width: 78%;
   }
 }
+input {
+    border: 1px solid $off-yellow;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding-right: 3rem;
+    width: 75%;
+  }
+
+  .highlight {
+    background-color: rgb(248, 160, 160);
+  }
 
 .the-box {
   align-items: center;
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-around;
+  margin-bottom: 2rem;
 
   input {
-    margin-right: -30rem;
+    margin-right: -40rem;
     width: 50px;
   }
 
-  div {
+  label {
     margin-left: -30rem;
   }
 }
@@ -78,11 +78,19 @@ h2 {
   border-radius: 10%;
   height: 150px;
   margin: 0 auto;
+  padding-right: 0;
   width: 200px;
 }
 
 .submit-container {
   align-items: center;
   display: flex;
+  margin-bottom: 2rem;
   width: 100%;
+}
+
+.errors {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
