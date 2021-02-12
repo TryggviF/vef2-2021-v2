@@ -1,0 +1,51 @@
+* {
+  font-family: $fonts;
+}
+
+body {
+  background-color: $off-white;
+}
+
+header > h1 {
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  width: 100%;
+
+  input {
+    border: 1px solid $off-yellow;
+    padding-right: 3rem;
+    width: 75%;
+  }
+
+  .ath {
+    height: 6rem;
+  }
+
+  textarea {
+    width: 85%;
+  }
+}
+
+hr {
+  border: 1px dotted #333;
+}
+
+.big-h1 {
+  font-size: 5rem;
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+}

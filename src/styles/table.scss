@@ -1,0 +1,26 @@
+table {
+  display: flex;
+  flex-direction: column;
+}
+
+tr {
+  border: solid 1px $off-yellow;
+  display: flex;
+  flex-direction: row;
+}
+
+th {
+  border: solid 1px $off-yellow;
+}
+
+.date {
+  width: 17%;
+}
+
+.name {
+  width: 17%;
+}
+
+.note {
+  width: 65%;
+}
