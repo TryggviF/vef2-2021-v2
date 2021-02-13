@@ -44,13 +44,13 @@
         </tr>
         <% signatures.rows.forEach(sign => { %>
             <tr>
-                <th class = "date"><%= new Date(sign.signed).toDateString() %> </th>
+                <td class = "date"><%= new Date(sign.signed).toDateString() %> </td>
                 <% if(sign.anonymous) { %>
-                    <th class = "name"></th>
+                    <td class = "name"></td>
                 <% } else {%>
-                    <th class = "name"><%= sign.name%></th>
+                    <td class = "name"><%= sign.name%></td>
                 <%} %>
-                <th class= "note"><%= sign.comment%></th>
+                <td class= "note"><%= sign.comment%></td>
             </tr>    
         <% }); %> 
     

@@ -5,17 +5,19 @@ table {
 
 tr {
   border: solid 1px $off-yellow;
-  display: flex;
-  flex-direction: row;
-  height: 1.5rem;
 
   > * {
     font-weight: 400;
   }
 }
 
-th {
+th,
+td {
   border: solid 1px $off-yellow;
+}
+
+td {
+  text-align: center;
 }
 
 .date {

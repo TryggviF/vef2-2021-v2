@@ -19,15 +19,6 @@ if (!connectionString) {
 const ssl = nodeEnv !== 'development' ? { rejectUnauthorized: false } : false;
 
 const pool = new pg.Pool({ connectionString, ssl });
-if (!connectionString) {
-  console.error('Vantar DATABASE_URL');
-  process.exit(1);
-}
-
-pool.on('error', (err) => {
-  console.error('Unexpected error on idle client', err);
-});
-// TODO gagnagrunnstengingar
 
 export async function insertSignature(name, natID, comment, anon) {
   const client = await pool.connect();
